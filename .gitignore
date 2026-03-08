@@ -1,0 +1,4 @@
+test-exercise/assignment/main
+__pycache__/
+*.pyc
+*.egg-info/

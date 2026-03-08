@@ -1,0 +1,459 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]\\.[0-9]$"
+    },
+    "translation_unit": {
+      "type": "string"
+    },
+    "tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "compile",
+              "io",
+              "structural",
+              "grey_box",
+              "grey_box_c",
+              "oclint"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "compile"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "type": {
+                  "$ref": "#/definitions/type"
+                },
+                "name": {
+                  "$ref": "#/definitions/name"
+                },
+                "requirements": {
+                  "$ref": "#/definitions/requirements"
+                },
+                "makefile_name": {
+                  "type": "string"
+                },
+                "make_target": {
+                  "type": "string"
+                },
+                "makefile_directory": {
+                  "type": "string"
+                },
+                "sourcecode_directory": {
+                  "type": "string"
+                },
+                "make_timeout": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "type",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "io"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "type": {
+                  "$ref": "#/definitions/type"
+                },
+                "name": {
+                  "$ref": "#/definitions/name"
+                },
+                "requirements": {
+                  "$ref": "#/definitions/requirements"
+                },
+                "makefile_name": {
+                  "type": "string"
+                },
+                "make_target": {
+                  "type": "string"
+                },
+                "makefile_directory": {
+                  "type": "string"
+                },
+                "sourcecode_directory": {
+                  "type": "string"
+                },
+                "make_timeout": {
+                  "type": "integer"
+                },
+                "exec_timeout": {
+                  "type": "integer"
+                },
+                "c_file": {
+                  "type": "string"
+                },
+                "io_test_config": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "structural"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "type": {
+                  "$ref": "#/definitions/type"
+                },
+                "name": {
+                  "$ref": "#/definitions/name"
+                },
+                "requirements": {
+                  "$ref": "#/definitions/requirements"
+                },
+                "makefile_directory": {
+                  "type": "string"
+                },
+                "sourcecode_directory": {
+                  "type": "string"
+                },
+                "translation_unit": {
+                  "type": "string"
+                },
+                "exec_timeout": {
+                  "type": "integer"
+                },
+                "allowed_function_calls": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "disallowed_function_calls": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "expected_function_calls": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "expected_keywords": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "disallowed_keywords": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "expected_variable_declarations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "required_functions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "compile_args": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "disallowed_includes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "global_variables": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "insecure": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "input": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "output": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "recursion": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "functions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "function": {
+                        "type": "string"
+                      },
+                      "allowed_function_calls": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "disallowed_function_calls": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "expected_function_calls": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "expected_keywords": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "disallowed_keywords": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "expected_variable_declarations": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "insecure": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "input": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "output": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "recursion": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "function"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "type",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "grey_box"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "type": {
+                  "$ref": "#/definitions/type"
+                },
+                "name": {
+                  "$ref": "#/definitions/name"
+                },
+                "requirements": {
+                  "$ref": "#/definitions/requirements"
+                },
+                "makefile_name": {
+                  "type": "string"
+                },
+                "make_target": {
+                  "type": "string"
+                },
+                "makefile_directory": {
+                  "type": "string"
+                },
+                "sourcecode_directory": {
+                  "type": "string"
+                },
+                "make_timeout": {
+                  "type": "integer"
+                },
+                "exec_timeout": {
+                  "type": "integer"
+                },
+                "library_name": {
+                  "type": "string"
+                },
+                "module_path": {
+                  "type": "string"
+                },
+                "class": {
+                  "type": "string"
+                },
+                "unit_test": {
+                  "type": "boolean"
+                },
+                "max_errors": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "type",
+                "module",
+                "class",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "oclint"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "type": {
+                  "$ref": "#/definitions/type"
+                },
+                "name": {
+                  "$ref": "#/definitions/name"
+                },
+                "requirements": {
+                  "$ref": "#/definitions/requirements"
+                },
+                "translation_unit": {
+                  "type": "string"
+                },
+                "sourcecode_directory": {
+                  "type": "string"
+                },
+                "exec_timeout": {
+                  "type": "integer"
+                },
+                "suppress_line": {
+                  "type": "boolean"
+                },
+                "suppress_range": {
+                  "type": "boolean"
+                },
+                "disable_rules": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "apply_rules": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "type",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "version"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "name": {
+      "type": "string"
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "type": {
+      "type": "string"
+    }
+  }
+}

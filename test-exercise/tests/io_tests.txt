@@ -1,0 +1,19 @@
+start> matching="exact"
+i> "0"
+o> "1\n"
+end> 0
+
+start> matching="exact"
+i> "1"
+o> "1\n"
+end> 0
+
+start> matching="exact"
+i> "5"
+o> "120\n"
+end> 0
+
+start> matching="exact"
+i> "10"
+o> "3628800\n"
+end> 0

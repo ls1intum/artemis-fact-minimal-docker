@@ -1,0 +1,25 @@
+version: "0.0"
+translation_unit: main.c
+tests:
+  - type: compile
+    name: CompileNormal
+    makefile_directory: ../assignment
+    make_target: main
+  - type: compile
+    name: CompileStrict
+    makefile_name: Makefile
+    makefile_directory: ../assignment
+    make_target: strict
+  - type: io
+    name: IOTests
+    io_test_config: io_tests.txt
+    makefile_directory: ../assignment
+    make_target: main
+    requirements:
+      - CompileNormal
+  - type: structural
+    name: CodeStructure
+    translation_unit: main.c
+    sourcecode_directory: ../assignment
+    requirements:
+      - CompileNormal
