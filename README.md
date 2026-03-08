@@ -36,8 +36,8 @@ Verify it works:
 # Check FACT imports
 docker run --rm fact-test python3 -c "import fact; print('OK')"
 
-# Check libclang loads
-docker run --rm fact-test python3 -c "from clang.cindex import Index; idx = Index.create(); print('OK')"
+# Check libclang loads through FACT's setup
+docker run --rm fact-test python3 -c "import fact; from clang.cindex import Index; Index.create(); print('OK')"
 
 # Check GCC
 docker run --rm fact-test gcc --version

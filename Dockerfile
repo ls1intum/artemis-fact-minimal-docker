@@ -1,19 +1,30 @@
-FROM debian:bookworm-slim
+FROM debian:bookworm-slim AS builder
 
 RUN apt-get update && \
-    apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
-        python3 python3-pip \
-        gcc libc6-dev make \
-        libclang1-14 libclang-common-14-dev \
-        sudo && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-ENV PIP_BREAK_SYSTEM_PACKAGES=1
+        ca-certificates \
+        python3 python3-pip && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY fact/ /opt/fact/fact/
 COPY setup.py /opt/fact/setup.py
-RUN pip3 install --no-cache-dir /opt/fact && rm -rf /opt/fact
+
+RUN python3 -m pip install --no-cache-dir --target /opt/python /opt/fact && \
+    rm -rf /opt/fact
+
+FROM debian:bookworm-slim
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3 \
+        gcc libc6-dev make \
+        libclang1-14 libclang-common-14-dev \
+        sudo && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /opt/python /opt/python
+
+ENV PYTHONPATH=/opt/python
 
 # UserID 5000 required for Artemis Build Infrastructure
 RUN useradd -m --uid 5000 artemis_user && \
